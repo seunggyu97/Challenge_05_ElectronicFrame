@@ -18,4 +18,14 @@
 * View Animation
 * Activity Lifecycle
   * <https://developer.android.com/guide/components/activities/activity-lifecycle?hl=ko>
-  
+![activity_lifecycle](https://user-images.githubusercontent.com/74666576/151051712-98e4576e-ebc7-4982-8d82-5400970118de.jpg)
+
+* Content Provider
+  * SAF (Storage Access Framework)
+  * <https://developer.android.com/guide/topics/providers/document-provider?hl=ko>
+
+
+# 실행화면
+
+<img src="https://user-images.githubusercontent.com/74666576/151050195-ddcd60b4-070e-4905-9ac6-9157e252a32f.jpg" width="270" height="500"><img src="https://user-images.githubusercontent.com/74666576/151050182-735331a9-ae69-422a-a2e7-7510e162f934.jpg" width="270" height="500"><img src="https://user-images.githubusercontent.com/74666576/151050148-555c96ac-0065-463e-ae75-8bb34e8c589b.jpg" width="270" height="500"><img src="https://user-images.githubusercontent.com/74666576/151050156-7c9b8c51-46c0-4402-ae03-f70cf2fcadd4.jpg" width="270" height="500"><img src="https://user-images.githubusercontent.com/74666576/151050131-fd85a9c1-aec0-4a43-9eb9-d5a585fe9846.jpg" width="270" height="500">
+![SmartSelect_20220126-045538](https://user-images.githubusercontent.com/74666576/151050120-83fac4a5-3805-491b-af00-f47d64e8be07.gif)
