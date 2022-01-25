@@ -6,7 +6,7 @@
 ## 기능
 
 * Android 권한 허용 ("사진 추가하기" 버튼 클릭 시 권한 요구)
-* 권한 설명 팝업 (권한 거절 후 "사진 추가하기" 버튼 재클릭 시 교육용 UI (권한 설명 팝업) 출력
+* 권한 설명 팝업 (권한 거절 후 "사진 추가하기" 버튼 재클릭 시 교육용 UI (접근권한 설명 팝업) 출력
 * 사용자 기기에 있는 사진을 Layout에 출력 (최대 9장)
 * "전자액자 실행하기" 버튼 클릭 시 추가된 사진을 순서대로 애니메이션을 이용해 전환 (가로모드)
 
@@ -15,6 +15,95 @@
 * Layout
   * 가로 화면으로 전환
 * Android Permission
+  * **Manifest**
+  * ``` kotlin
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    ```
+* 이미지 파일 가져오기
+  * **MainActivity**
+  * ``` kotlin
+    addPhotoButton.setOnClickListener {
+            when{
+                ContextCompat.checkSelfPermission(
+                // 접근 권한 체크
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED ->{
+                    // 권한 허용 상태일 경우
+                    navigatePhotos()
+                }
+                shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) ->{
+                    // 권한 허용 상태가 아닐경우, 교육용 팝업 확인 후 권한 팝업을 띄우는 기능
+                    showPermissionContextPopup()
+                }
+                else -> {
+                    // 위 두개의 상태가 아닐경우(버튼 클릭이 처음일 경우)
+                    requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),1000)
+                }
+            }
+        }
+     ```
+     
+     ``` kotlin
+     override fun onRequestPermissionsResult(
+         requestCode: Int,
+         permissions: Array<out String>,
+         grantResults: IntArray
+     ) {
+         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+         when(requestCode){
+             1000 -> {
+                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                     navigatePhotos()
+                 } else{
+                     Toast.makeText(this,"권한을 거부하셨습니다.", Toast.LENGTH_SHORT).show()
+                 }
+             }
+             else -> {
+
+             }
+         }
+     }
+     ```
+     ``` kotlin
+     private fun navigatePhotos(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, 2000)
+    }
+    ```
+    ``` kotlin
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode != Activity.RESULT_OK){
+            return
+        }
+
+        when(requestCode){
+            2000 -> {
+                val selectedImageUri: Uri? = data?.data
+                if(selectedImageUri != null){
+
+                    if(imageUriList.size == 9) {
+                        Toast.makeText(this, "이미 사진이 꽉 찼습니다.",Toast.LENGTH_SHORT).show()
+                        return
+                    }
+
+                    imageUriList.add(selectedImageUri)
+                    imageViewList[imageUriList.size - 1].setImageURI(selectedImageUri)
+
+                }else {
+                    Toast.makeText(this, "사진을 가져오지 못했습니다.",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            else -> {
+                Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 * View Animation
 * Activity Lifecycle
   * <https://developer.android.com/guide/components/activities/activity-lifecycle?hl=ko>
