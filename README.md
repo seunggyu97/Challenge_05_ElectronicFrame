@@ -66,13 +66,7 @@
          }
      }
      ```
-     ``` kotlin
-     private fun navigatePhotos(){
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent, 2000)
-    }
-    ```
+
     ``` kotlin
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -105,14 +99,19 @@
         }
     }
 * View Animation
-* Activity Lifecycle
-  * <https://developer.android.com/guide/components/activities/activity-lifecycle?hl=ko>
-![activity_lifecycle](https://user-images.githubusercontent.com/74666576/151051712-98e4576e-ebc7-4982-8d82-5400970118de.jpg)
-
 * Content Provider
   * SAF (Storage Access Framework)
   * <https://developer.android.com/guide/topics/providers/document-provider?hl=ko>
-
+     ``` kotlin
+     private fun navigatePhotos(){
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, 2000)
+    }
+    ```
+* Activity Lifecycle
+  * <https://developer.android.com/guide/components/activities/activity-lifecycle?hl=ko>
+![activity_lifecycle](https://user-images.githubusercontent.com/74666576/151051712-98e4576e-ebc7-4982-8d82-5400970118de.jpg)
 
 # 실행화면
 
