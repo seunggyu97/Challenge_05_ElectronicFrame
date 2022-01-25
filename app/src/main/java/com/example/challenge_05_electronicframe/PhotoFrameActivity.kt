@@ -28,7 +28,6 @@ class PhotoFrameActivity: AppCompatActivity() {
 
         getPhotoUrilFromIntent()
 
-        startTimer()
     }
 
     private fun getPhotoUrilFromIntent(){
