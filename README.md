@@ -29,11 +29,11 @@
                     this,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED ->{
-                    // 권한 허용 상태일 경우
+                    // 권한이 있는 경우
                     navigatePhotos()
                 }
                 shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE) ->{
-                    // 권한 허용 상태가 아닐경우, 교육용 팝업 확인 후 권한 팝업을 띄우는 기능
+                    // 권한이 없는 경우, 교육용 팝업 확인 후 권한 팝업을 띄우는 기능
                     showPermissionContextPopup()
                 }
                 else -> {
